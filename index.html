@@ -246,10 +246,12 @@
         });
 
 
-        // --- CONFIGURACIÓN DE FIREBASE (ACTUALIZADA LOMA VERDE) ---
+        // --- CONFIGURACIÓN DE FIREBASE (CORREGIDA) ---
         const firebaseConfig = {
             apiKey: "AIzaSyDAL7Qp9LN7f8S5Sq0QPwGb5R2wQOvn5nI",
             authDomain: "club-privado-loma-verde.firebaseapp.com",
+            // Esta línea es la que faltaba para corregir el error:
+            databaseURL: "https://club-privado-loma-verde-default-rtdb.firebaseio.com", 
             projectId: "club-privado-loma-verde",
             storageBucket: "club-privado-loma-verde.firebasestorage.app",
             messagingSenderId: "913952836624",
@@ -259,8 +261,7 @@
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
         const auth = firebase.auth();
-        // NOTA: provider de Google eliminado ya que usaremos Anónimo
-
+        
         // --- AUTH ---
         const loginScreen = document.getElementById('login-screen');
         const appContent = document.getElementById('app-content');
@@ -271,10 +272,9 @@
         const userEmailDisplay = document.getElementById('user-email');
         const userPhotoDisplay = document.getElementById('user-photo');
 
-        // Modificado para LOGIN ANÓNIMO
+        // LOGIN ANÓNIMO
         loginBtn.addEventListener('click', () => {
             loginStatus.textContent = "Accediendo al sistema...";
-            // Usamos signInAnonymously en lugar de signInWithPopup
             auth.signInAnonymously().catch((error) => { 
                 loginStatus.textContent = "Error: " + error.message; 
                 console.error(error); 
@@ -288,7 +288,6 @@
                 loginScreen.style.display = 'none'; 
                 appContent.style.display = 'block';
                 
-                // Configuración manual de datos de usuario para el modo Anónimo
                 const displayName = "Administrador";
                 const email = "Acceso Autorizado";
                 
@@ -318,7 +317,7 @@
         let editingSubtasks = []; 
 
         const statusOrder = ['Pendiente', 'En Proceso', 'Realizado', 'Suspendido'];
-        // Ajuste de colores de fondo para modo oscuro en los selects
+        
         const statusOptions = { 
             'Pendiente': 'bg-yellow-100 text-yellow-800 border-yellow-300 dark:bg-yellow-900/40 dark:text-yellow-200 dark:border-yellow-700', 
             'Realizado': 'bg-institutional/20 text-institutional border-institutional/40 dark:bg-blue-900/40 dark:text-blue-300 dark:border-blue-700', 
@@ -379,7 +378,6 @@
         function renderChecklist() {
             const container = document.getElementById('checklist-container'); const currentOpenRubros = new Set(openRubros); container.innerHTML = ''; const fragment = document.createDocumentFragment(); const today = new Date(); today.setHours(0, 0, 0, 0); const groupedData = getFilteredData().reduce((acc, item) => { (acc[item.rubro] = acc[item.rubro] || []).push(item); return acc; }, {});
             
-            // Renderizamos los rubros en el orden definido en el array 'rubros'
             rubros.forEach(rubro => {
                 const itemsInRubro = checklistData.filter(i => i.rubro === rubro); const itemsToShow = groupedData[rubro] || [];
                 const accordionItem = document.createElement('div'); accordionItem.className = 'bg-white dark:bg-slate-800 rounded-lg shadow-md overflow-hidden transition-colors';
@@ -425,7 +423,6 @@
                             
                             const actionsDiv = document.createElement('div'); actionsDiv.className = 'flex items-center gap-x-1 no-toggle justify-self-start md:justify-self-center'; 
                             
-                            // Botón CheckList
                             if (item.subtasks && item.subtasks.length > 0) {
                                 const checkBtn = document.createElement('button');
                                 checkBtn.className = 'p-1.5 text-gray-500 dark:text-gray-400 hover:text-green-600 hover:bg-green-100 dark:hover:bg-green-900/30 rounded-full transition-colors';
@@ -446,7 +443,6 @@
             });
             container.appendChild(fragment); 
             
-            // Listeners para checkboxes de subtareas
             document.querySelectorAll('.subtask-check').forEach(cb => {
                 cb.addEventListener('change', (e) => {
                     const taskId = e.target.dataset.taskId;
@@ -546,7 +542,6 @@
         function handleMoveTask(event, itemId) { database.ref('tasks').child(itemId).child('rubro').set(event.target.value); }
         function handleDeleteTask(itemId) { const taskToDelete = checklistData.find(d => d.id === itemId); if (confirm(`¿Estás seguro de que quieres eliminar la tarea "${taskToDelete.requerimiento}"?`)) { database.ref('tasks').child(itemId).remove(); } }
         
-        // --- GESTIÓN DE SUBTAREAS EN MODAL (MODIFICADO) ---
         const newSubtaskInput = document.getElementById('new-subtask-input');
         const addSubtaskBtn = document.getElementById('add-subtask-btn');
         const subtasksListEdit = document.getElementById('subtasks-list-edit');
@@ -573,7 +568,6 @@
             editingSubtasks.forEach((st, idx) => {
                 const li = document.createElement('li');
                 li.className = 'flex justify-between items-center bg-white dark:bg-slate-700 p-2 rounded border dark:border-slate-600 dark:text-gray-200 gap-2';
-                // Añadimos data-done para persistir el estado si se reordena
                 li.dataset.done = st.done; 
                 
                 li.innerHTML = `
@@ -584,14 +578,12 @@
                 subtasksListEdit.appendChild(li);
             });
 
-            // Inicializar Sortable si no existe
             if (!subtaskSortable) {
                 subtaskSortable = Sortable.create(subtasksListEdit, {
                     handle: '.handle',
                     animation: 150,
                     ghostClass: 'sortable-ghost',
                     onEnd: function (evt) {
-                        // Reordenar el array editingSubtasks basado en el DOM
                         const newOrder = [];
                         const items = subtasksListEdit.querySelectorAll('li');
                         items.forEach(item => {
@@ -600,7 +592,7 @@
                             newOrder.push({ text: input.value, done: doneState });
                         });
                         editingSubtasks = newOrder;
-                        renderEditingSubtasks(); // Re-renderizar para ajustar índices de onclick
+                        renderEditingSubtasks(); 
                     }
                 });
             }
@@ -624,7 +616,6 @@
             document.getElementById('form-overlay').classList.add('visible'); 
         }
 
-        // --- FUNCIONES DE GESTIÓN RUBROS (MODIFICADO) ---
         let rubrosSortable = null;
 
         function handleAddRubro(event) { event.preventDefault(); const input = document.getElementById('new-rubro-name'); const newRubroName = input.value; if (newRubroName && newRubroName.trim() !== "") { const trimmedName = newRubroName.trim(); if (rubros.includes(trimmedName)) { alert("Ese rubro ya existe."); return; } const eliminadoIndex = rubros.indexOf('Eliminado'); if (eliminadoIndex > -1) { rubros.splice(eliminadoIndex, 0, trimmedName); } else { rubros.push(trimmedName); } database.ref('rubros').set(rubros).then(() => { renderRubrosModal(); updateRubroDropdown(); renderChecklist(); }); input.value = ''; } }
@@ -638,9 +629,8 @@
                 const isProtected = protectedRubros.includes(name); 
                 const itemDiv = document.createElement('div'); 
                 itemDiv.className = 'flex items-center justify-between p-2 border-b dark:border-slate-600 bg-white dark:bg-slate-700';
-                itemDiv.dataset.rubroName = name; // Para Sortable
+                itemDiv.dataset.rubroName = name;
 
-                // Contenido izquierdo con Handle
                 const leftDiv = document.createElement('div');
                 leftDiv.className = 'flex items-center gap-2';
                 leftDiv.innerHTML = `<span class="handle cursor-grab text-gray-400 hover:text-gray-600">☰</span> <span class="${isProtected ? 'text-gray-500' : 'text-gray-800 dark:text-gray-200'}">${name}</span>`;
@@ -656,19 +646,15 @@
                 container.appendChild(itemDiv); 
             }); 
             
-            // Inicializar Sortable para Rubros
             if (!rubrosSortable) {
                 rubrosSortable = Sortable.create(container, {
                     handle: '.handle',
                     animation: 150,
                     ghostClass: 'sortable-ghost',
                     onEnd: function (evt) {
-                        // Obtener el nuevo orden del DOM
                         const newOrder = Array.from(container.children).map(child => child.dataset.rubroName);
                         rubros = newOrder;
-                        // Guardar en Firebase
                         database.ref('rubros').set(rubros);
-                        // Actualizar dropdown y vista principal
                         updateRubroDropdown();
                         renderChecklist();
                     }
@@ -699,11 +685,10 @@
 
             showImportModalBtn.addEventListener('click', () => { formOverlay.classList.remove('visible'); importOverlay.classList.add('visible'); }); closeImportBtn.addEventListener('click', () => importOverlay.classList.remove('visible')); closeImportBtnBottom.addEventListener('click', () => importOverlay.classList.remove('visible')); downloadTemplateBtn.addEventListener('click', handleDownloadTemplate); processImportBtn.addEventListener('click', handleProcessImport);
             
-            // Añadir Tarea: Limpiar y mostrar modal
             addTaskBtn.addEventListener('click', () => { 
                 document.getElementById('form-title').textContent = "Añadir Tarea"; 
                 addTaskForm.reset(); 
-                editingSubtasks = []; // Reiniciar subtareas
+                editingSubtasks = []; 
                 renderEditingSubtasks();
                 updateRecurrenceUI('none'); 
                 document.getElementById('edit-task-id').value = ''; 
@@ -712,7 +697,6 @@
             
             closeFormBtn.addEventListener('click', () => formOverlay.classList.remove('visible')); recurrenceTypeSelect.addEventListener('change', (e) => updateRecurrenceUI(e.target.value));
             
-            // Guardar Tarea (Submit)
             addTaskForm.addEventListener('submit', (e) => { 
                 e.preventDefault(); 
                 const formData = new FormData(addTaskForm); 
@@ -726,7 +710,7 @@
                     prioridad: formData.get('prioridad'), 
                     costo: formData.get('costo'), 
                     recurrence: recurrence,
-                    subtasks: editingSubtasks // Guardar subtareas
+                    subtasks: editingSubtasks 
                 }; 
                 if (editId) { database.ref('tasks').child(editId).update(taskData); } else { const newId = database.ref('tasks').push().key; database.ref('tasks').child(newId).set({ ...taskData, estado: 'Pendiente' }); } 
                 addTaskForm.reset(); 
