@@ -2,7 +2,7 @@
 <html lang="es" class="light"> <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fozca - Project Manager</title>
+    <title>Club Privado Loma Verde - Gestión</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -66,11 +66,9 @@
         .cursor-grabbing { cursor: grabbing; }
         .sortable-ghost { opacity: 0.4; background-color: #e2e8f0; }
 
-        /* AJUSTE LOGO: Se eliminó el fondo blanco forzado */
         .logo-login { mix-blend-mode: multiply; }
         .dark .logo-login { mix-blend-mode: normal; border-radius: 12px; }
         
-        /* Logo Navbar */
         .logo-nav { border-radius: 6px; }
 
         @media print {
@@ -92,15 +90,17 @@
         <div class="bg-white dark:bg-slate-800 p-8 rounded-xl shadow-2xl text-center max-w-md w-full mx-4 border border-gray-100 dark:border-slate-700">
             <div class="mb-8">
                 <div class="mx-auto mb-4 flex justify-center">
-                    <img src="logo.jpg" alt="Fozca Logo" class="h-24 w-auto object-contain logo-login">
+                    <img src="logo.jpg" alt="Logo Club" class="h-24 w-auto object-contain logo-login">
                 </div>
-                <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Acceso Fozca</h1>
-                <p class="text-gray-500 dark:text-gray-400 mt-1">Gestión Inteligente</p>
+                <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Club Privado Loma Verde</h1>
+                <p class="text-gray-500 dark:text-gray-400 mt-1">Gestión de Tareas</p>
             </div>
             
-            <button id="google-login-btn" class="w-full flex items-center justify-center gap-3 bg-white dark:bg-slate-700 border border-gray-300 dark:border-slate-600 hover:bg-gray-50 dark:hover:bg-slate-600 text-gray-700 dark:text-gray-200 font-semibold py-3 px-4 rounded-lg transition-all shadow-sm group">
-                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5 group-hover:scale-110 transition-transform" alt="Google">
-                <span>Ingresar con Google</span>
+            <button id="login-btn" class="w-full flex items-center justify-center gap-3 bg-institutional hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition-all shadow-sm group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                </svg>
+                <span>Ingresar al Sistema</span>
             </button>
             <p id="login-status" class="mt-4 text-xs text-gray-400 min-h-[20px]"></p>
         </div>
@@ -110,11 +110,10 @@
         
         <div id="user-bar" class="bg-white dark:bg-slate-800 shadow-sm border-b dark:border-slate-700 px-4 py-2 flex justify-between items-center sticky top-0 z-40 transition-colors">
             <div class="flex items-center gap-3">
-                <img src="logo.jpg" alt="Fozca" class="h-9 w-auto object-contain logo-nav">
+                <img src="logo.jpg" alt="Club" class="h-9 w-auto object-contain logo-nav">
                 
                 <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-2">
-                    <span class="text-xl font-extrabold tracking-tight text-slate-800 dark:text-white leading-none">Fozca</span>
-                    <span class="text-[10px] sm:text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 py-0.5 px-2 rounded-full font-medium self-start sm:self-auto">Workspace</span>
+                    <span class="text-xl font-extrabold tracking-tight text-slate-800 dark:text-white leading-none">Club Privado Loma Verde</span>
                 </div>
             </div>
             
@@ -217,7 +216,7 @@
             <main id="checklist-container" class="space-y-6"></main>
 
             <footer class="text-center mt-12 text-sm text-gray-500">
-                <p>Fozca - Datos cifrados</p>
+                <p>Club Privado Loma Verde - Datos cifrados</p>
             </footer>
         </div>
     </div>
@@ -247,43 +246,62 @@
         });
 
 
-        // --- CONFIGURACIÓN DE FIREBASE ---
+        // --- CONFIGURACIÓN DE FIREBASE (ACTUALIZADA LOMA VERDE) ---
         const firebaseConfig = {
-            apiKey: "AIzaSyAdbyflkDL_6FqToeZZlV-mJaUK9ra8hYU",
-            authDomain: "personal-pablo-frixione.firebaseapp.com",
-            databaseURL: "https://personal-pablo-frixione-default-rtdb.firebaseio.com",
-            projectId: "personal-pablo-frixione",
-            storageBucket: "personal-pablo-frixione.firebasestorage.app",
-            messagingSenderId: "914107077598",
-            appId: "1:914107077598:web:e796a1e8fc80afcb20434f"
+            apiKey: "AIzaSyDAL7Qp9LN7f8S5Sq0QPwGb5R2wQOvn5nI",
+            authDomain: "club-privado-loma-verde.firebaseapp.com",
+            projectId: "club-privado-loma-verde",
+            storageBucket: "club-privado-loma-verde.firebasestorage.app",
+            messagingSenderId: "913952836624",
+            appId: "1:913952836624:web:971dead9e43437c1c78e95"
         };
 
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
         const auth = firebase.auth();
-        const provider = new firebase.auth.GoogleAuthProvider();
+        // NOTA: provider de Google eliminado ya que usaremos Anónimo
 
         // --- AUTH ---
         const loginScreen = document.getElementById('login-screen');
         const appContent = document.getElementById('app-content');
-        const loginBtn = document.getElementById('google-login-btn');
+        const loginBtn = document.getElementById('login-btn');
         const logoutBtn = document.getElementById('logout-btn');
         const loginStatus = document.getElementById('login-status');
         const userNameDisplay = document.getElementById('user-name');
         const userEmailDisplay = document.getElementById('user-email');
         const userPhotoDisplay = document.getElementById('user-photo');
 
+        // Modificado para LOGIN ANÓNIMO
         loginBtn.addEventListener('click', () => {
-            loginStatus.textContent = "Conectando con Google...";
-            auth.signInWithPopup(provider).catch((error) => { loginStatus.textContent = "Error: " + error.message; console.error(error); });
+            loginStatus.textContent = "Accediendo al sistema...";
+            // Usamos signInAnonymously en lugar de signInWithPopup
+            auth.signInAnonymously().catch((error) => { 
+                loginStatus.textContent = "Error: " + error.message; 
+                console.error(error); 
+            });
         });
+
         logoutBtn.addEventListener('click', () => auth.signOut());
+
         auth.onAuthStateChanged((user) => {
             if (user) {
-                loginScreen.style.display = 'none'; appContent.style.display = 'block';
-                userNameDisplay.textContent = user.displayName; userEmailDisplay.textContent = user.email; userPhotoDisplay.src = user.photoURL || "https://ui-avatars.com/api/?name=" + user.displayName;
+                loginScreen.style.display = 'none'; 
+                appContent.style.display = 'block';
+                
+                // Configuración manual de datos de usuario para el modo Anónimo
+                const displayName = "Administrador";
+                const email = "Acceso Autorizado";
+                
+                userNameDisplay.textContent = displayName; 
+                userEmailDisplay.textContent = email; 
+                userPhotoDisplay.src = "https://ui-avatars.com/api/?name=Club+Loma+Verde&background=random";
+                
                 loadInitialData(); 
-            } else { loginScreen.style.display = 'flex'; appContent.style.display = 'none'; loginStatus.textContent = ""; }
+            } else { 
+                loginScreen.style.display = 'flex'; 
+                appContent.style.display = 'none'; 
+                loginStatus.textContent = ""; 
+            }
         });
 
         // --- VARS ---
@@ -321,8 +339,8 @@
         const protectedResponsables = ['Yo'];
 
         function loadInitialData() {
-            const defaultRubros = ['Hogar', 'Trabajo', 'Finanzas', 'Salud', 'Eliminado'];
-            const defaultResponsables = ['Yo', 'Familia', 'Otro'];
+            const defaultRubros = ['Administración', 'Mantenimiento', 'Seguridad', 'Eventos', 'Eliminado']; // Ajustado para Club
+            const defaultResponsables = ['Gerencia', 'Personal', 'Contratista']; // Ajustado para Club
             const rubrosPromise = database.ref('rubros').once('value');
             const responsablesPromise = database.ref('responsables').once('value');
             Promise.all([rubrosPromise, responsablesPromise]).then(([rubrosSnapshot, responsablesSnapshot]) => {
@@ -663,10 +681,10 @@
         function renderResponsablesModal() { const container = document.getElementById('responsables-list-container'); container.innerHTML = ''; responsables.forEach(name => { const isProtected = protectedResponsables.includes(name); const itemDiv = document.createElement('div'); itemDiv.className = 'flex items-center justify-between p-2 border-b dark:border-slate-600'; const nameSpan = document.createElement('span'); nameSpan.textContent = name; nameSpan.className = isProtected ? 'text-gray-500' : 'text-gray-800 dark:text-gray-200'; itemDiv.appendChild(nameSpan); const buttonsDiv = document.createElement('div'); buttonsDiv.className = 'flex gap-2'; if (!isProtected) { const editBtn = document.createElement('button'); editBtn.className = 'edit-responsable-btn text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm'; editBtn.textContent = 'Editar'; editBtn.dataset.responsableName = name; buttonsDiv.appendChild(editBtn); const deleteBtn = document.createElement('button'); deleteBtn.className = 'delete-responsable-btn text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 text-sm'; deleteBtn.textContent = 'Eliminar'; deleteBtn.dataset.responsableName = name; buttonsDiv.appendChild(deleteBtn); } itemDiv.appendChild(buttonsDiv); container.appendChild(itemDiv); }); document.getElementById('manage-responsables-overlay').classList.add('visible'); }
         function handleEditResponsable(oldName) { const newName = prompt("Editar nombre del responsable:", oldName); if (!newName || newName.trim() === "" || newName === oldName) return; const trimmedName = newName.trim(); if (responsables.includes(trimmedName)) { alert("Ese nombre de responsable ya existe."); return; } const index = responsables.indexOf(oldName); if (index > -1) responsables[index] = trimmedName; const tasksToUpdate = checklistData.filter(task => task.responsable === oldName); const updates = {}; tasksToUpdate.forEach(task => { updates[`/tasks/${task.id}/responsable`] = trimmedName; }); updates[`/responsables`] = responsables; database.ref().update(updates).then(() => { renderResponsablesModal(); updateResponsableDropdown(); renderFilterModal(); }); }
         function handleDeleteResponsable(name) { const tasksAssigned = checklistData.filter(task => task.responsable === name); if (tasksAssigned.length > 0) { alert(`No se puede eliminar a "${name}" porque tiene ${tasksAssigned.length} tarea(s) asignada(s). Por favor, reasígnelas primero.`); return; } if (confirm(`¿Estás seguro de que quieres eliminar a "${name}"?`)) { responsables = responsables.filter(r => r !== name); database.ref('responsables').set(responsables).then(() => { renderResponsablesModal(); updateResponsableDropdown(); renderFilterModal(); }); } }
-        function handleDownloadTemplate() { const headers = "requerimiento;rubro;responsable;prioridad;costo;deadline"; const example = "Compra supermercado;Hogar;Yo;Alta;25000.00;2025-12-01"; const csvContent = "data:text/csv;charset=utf-8," + headers + "\n" + example; const encodedUri = encodeURI(csvContent); const link = document.createElement("a"); link.setAttribute("href", encodedUri); link.setAttribute("download", "plantilla_tareas_personal.csv"); document.body.appendChild(link); link.click(); document.body.removeChild(link); }
+        function handleDownloadTemplate() { const headers = "requerimiento;rubro;responsable;prioridad;costo;deadline"; const example = "Mantenimiento Piscina;Mantenimiento;Contratista;Alta;25000.00;2025-12-01"; const csvContent = "data:text/csv;charset=utf-8," + headers + "\n" + example; const encodedUri = encodeURI(csvContent); const link = document.createElement("a"); link.setAttribute("href", encodedUri); link.setAttribute("download", "plantilla_tareas_club.csv"); document.body.appendChild(link); link.click(); document.body.removeChild(link); }
         function handleProcessImport() { const fileInput = document.getElementById('csv-file-input'); const file = fileInput.files[0]; const feedback = document.getElementById('import-feedback'); if (!file) { feedback.textContent = "Por favor, selecciona un archivo .csv primero."; return; } feedback.textContent = ""; Papa.parse(file, { header: true, skipEmptyLines: true, delimiter: ";", complete: (results) => { processCSVData(results.data); }, error: (err) => { feedback.textContent = "Error al leer el archivo: " + err.message; } }); }
         function parseCSVDate(dateString) { if (!dateString) return ''; const parts = dateString.match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{4})$/); if (!parts) return ''; const day = parts[1].padStart(2, '0'); const month = parts[2].padStart(2, '0'); const year = parts[3]; return `${year}-${month}-${day}`; }
-        function processCSVData(data) { const updates = {}; let addedCount = 0; const validPriorities = ['Baja', 'Media', 'Alta']; data.forEach((row) => { const req = row.requerimiento ? row.requerimiento.trim() : ''; if (!req) return; let rubro = row.rubro ? row.rubro.trim() : ''; if (!rubros.includes(rubro) || rubro === 'Eliminado') { rubro = 'Hogar'; } let resp = row.responsable ? row.responsable.trim() : ''; if (!responsables.includes(resp)) { resp = 'Yo'; } let prio = row.prioridad ? row.prioridad.trim() : ''; const prioFound = validPriorities.find(p => p.toLowerCase() === prio.toLowerCase()); prio = prioFound || 'Baja'; let deadline = parseCSVDate(row.deadline ? row.deadline.trim() : ''); let costo = row.costo ? parseFloat(row.costo) : 0; const newId = database.ref('tasks').push().key; const newTask = { requerimiento: req, rubro: rubro, responsable: resp, prioridad: prio, costo: costo, deadline: deadline, estado: 'Pendiente', recurrence: { type: 'none' } }; updates[`/tasks/${newId}`] = newTask; addedCount++; }); if (addedCount > 0) { database.ref().update(updates).then(() => { alert(`${addedCount} tarea(s) importada(s) exitosamente.`); document.getElementById('csv-file-input').value = ''; document.getElementById('import-overlay').classList.remove('visible'); }); } else { document.getElementById('import-feedback').textContent = "No se encontraron tareas válidas para importar. Asegúrate de que la columna 'requerimiento' esté completa."; } }
+        function processCSVData(data) { const updates = {}; let addedCount = 0; const validPriorities = ['Baja', 'Media', 'Alta']; data.forEach((row) => { const req = row.requerimiento ? row.requerimiento.trim() : ''; if (!req) return; let rubro = row.rubro ? row.rubro.trim() : ''; if (!rubros.includes(rubro) || rubro === 'Eliminado') { rubro = 'Mantenimiento'; } let resp = row.responsable ? row.responsable.trim() : ''; if (!responsables.includes(resp)) { resp = 'Personal'; } let prio = row.prioridad ? row.prioridad.trim() : ''; const prioFound = validPriorities.find(p => p.toLowerCase() === prio.toLowerCase()); prio = prioFound || 'Baja'; let deadline = parseCSVDate(row.deadline ? row.deadline.trim() : ''); let costo = row.costo ? parseFloat(row.costo) : 0; const newId = database.ref('tasks').push().key; const newTask = { requerimiento: req, rubro: rubro, responsable: resp, prioridad: prio, costo: costo, deadline: deadline, estado: 'Pendiente', recurrence: { type: 'none' } }; updates[`/tasks/${newId}`] = newTask; addedCount++; }); if (addedCount > 0) { database.ref().update(updates).then(() => { alert(`${addedCount} tarea(s) importada(s) exitosamente.`); document.getElementById('csv-file-input').value = ''; document.getElementById('import-overlay').classList.remove('visible'); }); } else { document.getElementById('import-feedback').textContent = "No se encontraron tareas válidas para importar. Asegúrate de que la columna 'requerimiento' esté completa."; } }
         function applyStatusStyles(element, status) { element.className = element.className.split(' ').filter(c => !Object.values(statusOptions).join(' ').includes(c)).join(' '); const styles = statusOptions[status] || 'bg-gray-100 text-gray-800 border-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600'; element.classList.add(...styles.split(' ')); }
         function toggleAccordion(headerElement) { const rubroName = headerElement.dataset.rubro; if (!rubroName) return; if (openRubros.has(rubroName)) { openRubros.delete(rubroName); } else { openRubros.add(rubroName); } renderChecklist(); }
         function exportToPDF() { openRubros = new Set(rubros); renderChecklist(); setTimeout(() => { window.print(); }, 500); }
